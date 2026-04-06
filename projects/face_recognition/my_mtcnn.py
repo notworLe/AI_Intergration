@@ -3,20 +3,19 @@ import torch
 import cv2
 from pathlib import Path
 import numpy as np
-from torchvision.transforms import ToTensor
-import torch.nn.functional as F
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "CPU")
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 detector_mtcnn = MTCNN(
-    image_size=160,        # ← resize output về 160x160
-    margin=0,              # padding quanh face box
+    image_size=160,
+    margin=0,
     keep_all=True,
     device=device,
 ).to(device)
 
-to_tensor = ToTensor()
 
+# Lỗi thời
 def detect_processed(image_path:Path):
     if not isinstance(image_path, Path):
         image_path = Path(image_path)
@@ -36,7 +35,7 @@ def detect_processed(image_path:Path):
     else:
         print(f"No face in {image_path}")
 
-
+# Lỗi thời
 def detect_post_processing(image:Path):
     """
     Detect and convert to 160 x 160 with tensor

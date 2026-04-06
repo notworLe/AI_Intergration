@@ -1,28 +1,35 @@
 import cv2
 import torch
-
 from my_facenet import make_embedding, device
 from my_mtcnn import detector_mtcnn
 from database.db import get_embedding
 import torch.nn.functional as F
 
-cap = cv2.VideoCapture(0)
-embedding_db = get_embedding()
+
 
 if __name__ == '__main__':
+    embedding_db = [
+        (row[0], torch.tensor(row[1], dtype=torch.float32).to(device))
+        for row in get_embedding()
+    ]
+
     cap = cv2.VideoCapture(0)
-    embedding_db = get_embedding()
     THRESHOLD = 0.7
+
     while True:
         is_cap, frame = cap.read()
         if is_cap is None:
             print("Capture failure")
             break
+        # Avoid reverse camera
         frame = cv2.flip(frame, 1)
 
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
         # Return faces with boxes
         boxes, probs = detector_mtcnn.detect(frame_rgb)
+
+        # Face has post processing 160x160 [-1,1]
         faces = detector_mtcnn(frame_rgb)
 
         if faces is not None and len(faces) == len(boxes):
@@ -30,7 +37,10 @@ if __name__ == '__main__':
             embedding = make_embedding(faces)
 
             for embedd, box in zip(embedding, boxes):
-                cos_sim = [F.cosine_similarity(embedd, torch.tensor(embedd_db[1]), dim=0) for embedd_db in embedding_db]
+                cos_sim = [
+                    F.cosine_similarity(embedd, emb, dim=0).item()
+                    for _, emb in embedding_db
+                ]
                 best_idx = int(torch.argmax(torch.tensor(cos_sim)))
                 best_score = cos_sim[best_idx]
 
