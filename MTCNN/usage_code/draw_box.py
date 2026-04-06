@@ -7,8 +7,8 @@ from myFunctions.notworlecv2 import read_display_img
 detector = MTCNN()
 
 # Load image
-image_path = '../dataset/do_mi_xi/do2.jpg'
-do_mi_xi = cv2.imread('../dataset/do_mi_xi/do2.jpg')
+image_path = '../../dataset/do_mi_xi/raw/do2.jpg'
+do_mi_xi = cv2.imread('../../dataset/do_mi_xi/raw/do2.jpg')
 
 # Read for detector
 # image = load_image(image_path)
