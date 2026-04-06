@@ -5,6 +5,7 @@ from notworLeUtils.notworle_utils.dataset import FolderImage
 import numpy as np
 from database.db import update_embedding1
 import cv2
+import torch
 
 class UserFaceRecognition:
     def __init__(self, user_path:Path, dataset=False):
@@ -33,8 +34,9 @@ for i in range(len(users_list)):
     for image, name, path in users_list[i].dataset_raw:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         # It can return one or more faces
-        faces = detector_mtcnn(image).to(device)
+        faces = detector_mtcnn(image)
         if faces is not None:
+            faces = faces.to(device)
             # Make sure only have 1 face
             n_faces = len(faces)
             if len(faces) <= 1:
@@ -51,7 +53,7 @@ for i in range(len(users_list)):
             print(f"No face: {path}")
 
     # End loop each dataset of each user
-    users_list[i].embedding = np.mean(temp_embed, axis=0).squeeze()
+    users_list[i].embedding = torch.stack(temp_embed).mean(dim=0).cpu().numpy()
 
 # Update to db
 for i in range(len(users_list)):
