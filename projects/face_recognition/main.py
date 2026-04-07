@@ -9,7 +9,7 @@ import torch.nn.functional as F
 
 if __name__ == '__main__':
     embedding_db = [
-        (row[0], torch.tensor(row[1], dtype=torch.float32).to(device))
+        (row[0], torch.tensor(row[1], dtype=torch.float32).squeeze().to(device))
         for row in get_embedding()
     ]
 
@@ -37,6 +37,7 @@ if __name__ == '__main__':
             embedding = make_embedding(faces)
 
             for embedd, box in zip(embedding, boxes):
+                embedd = embedd.squeeze(0)
                 cos_sim = [
                     F.cosine_similarity(embedd, emb, dim=0).item()
                     for _, emb in embedding_db

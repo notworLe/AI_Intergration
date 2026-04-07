@@ -49,7 +49,7 @@ class DatabaseConfiguration:
 
 db_instance = DatabaseConfiguration(
         "guest",
-        "",
+        "npg_BF6MRWSQ5hbd",
         "ep-twilight-cake-a1gvkakf-pooler.ap-southeast-1.aws.neon.tech",
         5432,
         "face_recognition",

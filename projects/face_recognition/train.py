@@ -1,7 +1,7 @@
 from my_mtcnn import detector_mtcnn, device
 from my_facenet import make_embedding
 from pathlib import Path
-from notworLeUtils.notworle_utils.dataset import FolderImage
+from notworle_utils.dataset import FolderImage
 import numpy as np
 from database.db import update_embedding1
 import cv2
@@ -19,7 +19,7 @@ class UserFaceRecognition:
         return f"{self.name}"
 
 # Dataset path
-dataset_path = (Path.cwd() / ".." / "dataset").resolve()
+dataset_path = (Path.cwd() / "dataset").resolve()
 
 # Path of all users
 user_paths = list(dataset_path.iterdir())
