@@ -6,6 +6,8 @@
 
 **Note:** Make sure you have installed notworLeUtils
 
+- See full instructions here: : [Read it](../../README.md)
+
 1. Preprare your dataset
 
 - At root (face_recognition)
