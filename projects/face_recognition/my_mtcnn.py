@@ -15,6 +15,7 @@ detector_mtcnn = MTCNN(
 ).to(device)
 
 
+
 # Lỗi thời
 def detect_processed(image_path:Path):
     if not isinstance(image_path, Path):

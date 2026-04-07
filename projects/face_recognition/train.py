@@ -18,6 +18,7 @@ class UserFaceRecognition:
     def __str__(self):
         return f"{self.name}"
 
+
 # Dataset path
 dataset_path = (Path.cwd() / "dataset").resolve()
 

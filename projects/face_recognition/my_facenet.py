@@ -8,6 +8,7 @@ resnet = InceptionResnetV1(
 ).eval().to(device)
 
 
+
 def make_embedding(face_images_batch):
     # Resnet expected tuple batch
     embedding_face = resnet(face_images_batch).detach()

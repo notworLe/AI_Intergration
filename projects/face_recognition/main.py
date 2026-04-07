@@ -6,7 +6,6 @@ from database.db import get_embedding
 import torch.nn.functional as F
 
 
-
 if __name__ == '__main__':
     embedding_db = [
         (row[0], torch.tensor(row[1], dtype=torch.float32).squeeze().to(device))
