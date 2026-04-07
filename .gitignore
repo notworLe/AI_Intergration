@@ -220,5 +220,9 @@ Mi_AI
 .env
 .env.local
 
-project/dataset/notworle
 dataset/notworle
+
+projects/face_recognition/database/notworle
+
+projects/image_recognition/database/anhfull
+project/dataset/notworle
