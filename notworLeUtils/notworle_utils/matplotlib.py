@@ -14,7 +14,7 @@ def draw_plot(axes, titles, images, extra_fun=None):
             if extra_fun:
                 extra_fun(a, img)
 
-def draw_plot2(axes, titles, images, extra_fun=None):
+def draw_plot2(axes, titles, images, axis='off',extra_fun=None):
     for ax, title, image in zip(axes.flat, titles, images):
         if len(image.shape) == 2:
             ax.imshow(image, cmap='gray')
@@ -22,7 +22,7 @@ def draw_plot2(axes, titles, images, extra_fun=None):
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             ax.imshow(image)
         ax.set_title(title)
-        ax.axis('off')
+        ax.axis(axis)
 
         if extra_fun:
             extra_fun(ax, image)
